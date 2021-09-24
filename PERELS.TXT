@@ -1,0 +1,22 @@
+LBL "PERELS" ; calc ellipse perim acc series Cayley/GaussKummer a ENTER b XEQ PERELS
+CF 00        ; under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+X>Y?         ; date 2021 09 07 Update R 00-06 freed for use with SOLVE from MATH
+X<>Y         ; http://www.numericana.com/answer/ellipse.htm#elliptic     
+STO 07       ; b in 07
+X<>Y        
+STO 08       ; a in 08 and now is a bigger than b
+/
+.33
+X>Y?
+GOTO 01
+RCL 07
+RCL 08
+1
+XEQ "PEREL3" ; calc ellipse perim acc GaussKummer 
+RTN
+LBL 01
+RCL 07
+RCL 08
+1
+XEQ "PEREL4" ; calc ellipse perim acc Cayley 
+END

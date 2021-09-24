@@ -1,0 +1,85 @@
+LBL "PEREL3" ; calcul ellipse perimeter accoring GaussKummer  
+CF 00        ; under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de 
+1000         ; flag 00 will show the exit criteria of precision limit of the HP41 was achieved
+*            ; result perimeter in X   HP41 precision achieved in Y   number of iterations in Z
+STO 09       ; a ENTER b ENTER n XEQ PEREL3  n is max iterations in k to avoid unstable exit criteria
+STO 15       ; date 2021 09 07; update R00-R06 freed for use with SOL from MATH
+RDN          ; use R 07-15
+X>Y?
+X<>Y
+X=0?
+GTO 04
+STO 07       ; b in 07
+X<>Y
+STO 08       ; a in 08 and now is a bigger than b
+X<>Y
+-
+LASTX
+RCL 08
++
+/
+STO 10
+.5
+*
+STO 11
+X^2
+1
++
+STO 12
+1
+STO 13
+LBL 01
+RCL 13
+ST* 11
+3
++
+ST/ 11
+RCL 10
+ST* 11
+RCL 12
+STO 14
+RCL 11
+X^2
+ST+ 12
+2
+ST+ 13
+1
+ST- 09
+RCL 09
+X=0?      ; countdown from *1000 reached is an exit criteria (better use DSG)
+GTO 02
+RCL 14
+RCL 12
+X<>Y?
+GTO 06
+FS? 00
+GTO 02
+SF 00
+GTO 01
+LBL 02
+CF 00
+RCL 07
+RCL 08
++
+RCL 12
+*
+PI
+*
+RCL 15
+RCL 09
+-
+X<>Y
+RCL 14
+RCL 12
+-
+X<>Y
+RTN
+LBL 04
+X<>Y
+4
+*
+RTN
+LBL 06
+CF 00
+GTO 01
+END
