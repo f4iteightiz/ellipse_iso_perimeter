@@ -16,3 +16,9 @@ f) install pyILPER on your PC
 g) transfer the programs from V41 into pyILPER
 h) connect your HP41 with the PC via pilbox. Here you can order a pilbox http://www.jeffcalc.hp41.eu/hpil/index.html#pilbox
 i) download the programs from pyILPER into your HP41; then use them
+
+List of programs; look at the description in the TXT files for using them.
+PEREL3 and 4: calculate the perimeter given a and b (2 different convergences)
+PERELS: calculate the perimeter of an ellipse according the best suitable method
+BPEREL: calculate the other half-parameter of an ellipse by a given perimeter
+SCPEREL: output several isoperimeter points of an ellipse by a given perimeter
