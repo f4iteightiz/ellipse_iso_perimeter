@@ -2,8 +2,12 @@
 Few programs in FOCAL (HP41) for 
 a) ellipse perimeter calculation
 b) ellipse isoperimeter curve representation
+c) calculus and analysis (error calculation) of curves which define isoperimetercurves of ellipse
 
-It request the MATH or Advantage modules (MATH for SOL or Advantage for SOLVE) for BPEREL and SCPEREL.
+These functions together creates a vavarium of functions which are compatible with others regarding memory (register) sharing; 
+and compatible with other FOCAL functions of modules MATH (SOLVE, SOL).
+
+It request the MATH or Advantage modules (MATH for SOLVE/SOL or Advantage for SOLVE) for BPEREL and SCPEREL.
 
 SCPEREL use printing functionality of HP-IL: it can be modified easily for having the points only being printed into the HP41 screen. 
 
@@ -40,3 +44,12 @@ PERELS: calculate the perimeter of an ellipse according the best suitable method
 BPEREL: calculate the other half-parameter of an ellipse by a given perimeter
 
 SCPEREL: output several isoperimeter points of an ellipse by a given perimeter
+
+
+Final word: 
+these functions which can be used in the HP41 must be understood in the terms of mocks in the area of agile working. 
+They are "Good enough" functions for quick evaluations of new ideas in ellipse-perimeter calculus.
+Any functions with precise results will have to be checked and released on higher precision calculators (HP71 for example) 
+and perhaps larger 64bits processors before any further use.
+All the functions are NOT for any legal and productive use in the real world. Just use it in order to developp your creativity and thoughts.
+And: contact me if you want to share new thoughts or have any question.
