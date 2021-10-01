@@ -4,14 +4,17 @@ a) ellipse perimeter calculation
 b) ellipse isoperimeter curve representation
 c) calculus and analysis (error calculation) of curves which define isoperimetercurves of ellipse
 
-These functions together creates a vavarium of functions which are compatible with others regarding memory (register) sharing; 
-and compatible with other FOCAL functions of modules MATH (SOLVE, SOL).
 
-It request the MATH or Advantage modules (MATH for SOLVE/SOL or Advantage for SOLVE) for BPEREL and SCPEREL.
+These functions together creates a vivarium of functions which are compatible with others regarding memory (register) sharing; 
+and compatible with other FOCAL functions of modules ADVANTAGE (SOLVE) or MATH (SOL).
 
-SCPEREL use printing functionality of HP-IL: it can be modified easily for having the points only being printed into the HP41 screen. 
 
-However, the recommended setup is an HP41 connected to pyILPER on a PC via a PILBOX (in this case, the printing will be done on a window in the PC and the results can be easily transfered to complementary analysis at DESMOS.COM for example via a copy/paste of a PC editor).
+Some programs use the printing functionality of HP-IL: it can be modified easily for having the data only being printed into the HP41 screen. 
+
+
+However, the recommended setup is an HP41 connected to pyILPER on a PC via a PILBOX 
+(in this case, the printing will be done on a window in the PC and the results can be easily transfered to complementary analysis 
+at DESMOS.COM for example via a copy/paste of a PC editor).
 
 
 Way for using the programms: read the TXT files and put them direct into the HP41 or
@@ -37,19 +40,38 @@ i) download the programs from pyILPER into your HP41; then use them
 
 List of programs; look at the description in the TXT files for using them.
 
-PEREL3 and PEREL4: calculate the perimeter given a and b (2 different convergences)
 
-PERELS: calculate the perimeter of an ellipse according the best suitable method
+PEREL3 and PEREL4: calculate the perimeter given a and b (2 different convergences). No dependencies.
 
-BPEREL: calculate the other half-parameter of an ellipse by a given perimeter
 
-SCPEREL: output several isoperimeter points of an ellipse by a given perimeter
+PERELS: calculate the perimeter of an ellipse according the best suitable method. Dependencies: PEREL3 and PEREL4.
+
+
+BPEREL: calculate the other half-parameter of an ellipse by a given perimeter. Dependencies: PERELS, SOLVE from SandMath 
+(or "SOL" from Math module by replacing the Line 
+XEQ "SOLVE" 
+with 
+ASTO 06
+XEQ "SOL"
+
+
+SCPEREL: output several isoperimeter points of an ellipse by a given perimeter. Dependency: BPEREL, HP-IL (for outputs logging into printer/screen).
+
+
+CMPPERE: compare 
+a) ellipse perimeter calculation based on infinite serial calculations and 
+b) ellipse perimeter calculation based on other method
+Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "CALPERE" (or other tbd).
+
+
+CALPERE: calculate the ellipse perimeter based on a cycloid adjusted with the Bohr Magneton electron Adjustment factor. 
+Dependencies: "SOLVE" from Sandmath, HP-IL (for outputs logging into printer/screen). 
 
 
 Final word: 
 these functions which can be used in the HP41 must be understood in the terms of mocks in the area of agile working. 
 They are "Good enough" functions for quick evaluations of new ideas in ellipse-perimeter calculus.
 Any functions with precise results will have to be checked and released on higher precision calculators (HP71 for example) 
-and perhaps larger 64bits processors before any further use.
+and perhaps larger 64bits processors before any further use or creating mathematical conclusions.
 All the functions are NOT for any legal and productive use in the real world. Just use it in order to developp your creativity and thoughts.
 And: contact me if you want to share new thoughts or have any question.
