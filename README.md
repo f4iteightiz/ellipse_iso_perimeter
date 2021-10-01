@@ -41,31 +41,35 @@ i) download the programs from pyILPER into your HP41 (see HP-IL commands for dow
 List of programs; look at the description in the TXT files for using them.
 
 
-PEREL3 and PEREL4: calculate the perimeter given a and b (2 different convergences). No dependencies.
+PEREL3 and PEREL4: calculate the perimeter given a and b (2 different convergences). 
+No dependencies.
 
 
-PERELS: calculate the perimeter of an ellipse according the best suitable method. Dependencies: PEREL3 and PEREL4.
+PERELS: calculate the perimeter of an ellipse according the best suitable method. 
+Dependencies: PEREL3 and PEREL4.
 
 
-BPEREL: calculate the other half-parameter of an ellipse by a given perimeter. Dependencies: PERELS, SOLVE from SandMath 
+BPEREL: calculate the other half-parameter of an ellipse by a given perimeter. 
+Dependencies: PERELS, SOLVE from Advantage 
 (or "SOL" from Math module by replacing the Line 
 XEQ "SOLVE" 
 with 
 ASTO 06
-XEQ "SOL"
+XEQ "SOL").
 
 
-SCPEREL: output several isoperimeter points of an ellipse by a given perimeter. Dependency: BPEREL, HP-IL (for outputs logging into printer/screen).
+SCPEREL: output several isoperimeter points of an ellipse by a given perimeter. 
+Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen).
 
 
 CMPPERE: compare 
 a) ellipse perimeter calculation based on infinite serial calculations and 
-b) ellipse perimeter calculation based on other method
+b) ellipse perimeter calculation based on other method.
 Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "CALPERE" (or other tbd).
 
 
 CALPERE: calculate the ellipse perimeter based on a cycloid adjusted with the Bohr Magneton electron Adjustment factor. 
-Dependencies: "SOLVE" from Sandmath, HP-IL (for outputs logging into printer/screen). 
+Dependencies: "SOLVE" from Advantage, HP-IL (for outputs logging into printer/screen). 
 
 
 Final word: 
@@ -74,4 +78,4 @@ They are "Good enough" functions for quick evaluations of new ideas in ellipse-p
 Any functions with precise results will have to be checked and released on higher precision calculators (HP71 for example) 
 and perhaps larger 64bits processors before any further use or creating mathematical conclusions.
 All the functions are NOT for any legal and productive use in the real world. Just use it in order to developp your creativity and thoughts.
-And: contact me if you want to share new thoughts or have any question.
+Contact me if you want to share new thoughts or have any question.
