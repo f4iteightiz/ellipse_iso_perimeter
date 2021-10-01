@@ -31,11 +31,11 @@ e) ... or more ...
 
 f) install pyILPER on your PC (see anaconda package)
 
-g) transfer the programs from V41 into pyILPER
+g) transfer the programs from V41 into a virtual drive in pyILPER
 
 h) connect your HP41 with the PC via pilbox. Here you can order a pilbox http://www.jeffcalc.hp41.eu/hpil/index.html#pilbox
 
-i) download the programs from pyILPER into your HP41; then use them
+i) download the programs from pyILPER into your HP41 (see HP-IL commands for downloading programs); then use them
 
 
 List of programs; look at the description in the TXT files for using them.
