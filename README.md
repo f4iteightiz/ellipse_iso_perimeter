@@ -1,7 +1,7 @@
 # ellipse_perimeter
 Few programs in FOCAL (HP41) for 
 a) ellipse perimeter calculation
-b) ellipse isoperimeter curve representation
+b) ellipse isoperimeter curve representation (see png file)
 c) calculus and analysis (error calculation) of curves which define isoperimetercurves of ellipse
 
 
@@ -45,7 +45,7 @@ PEREL3 and PEREL4: calculate the perimeter given a and b (2 different convergenc
 No dependencies.
 
 
-PERELS: calculate the perimeter of an ellipse according the best suitable method. 
+PERELS: calculate the perimeter of an ellipse according the best suitable method (best convergency identified depending of the factor b/a). 
 Dependencies: PEREL3 and PEREL4.
 
 
@@ -68,7 +68,7 @@ b) ellipse perimeter calculation based on other method.
 Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "CALPERE" (or other tbd).
 
 
-CALPERE: calculate the ellipse perimeter based on a cycloid adjusted with the Bohr Magneton electron Adjustment factor. 
+CALPERE: calculate the ellipse perimeter based on a cycloid adjusted with the Bohr Magneton electron Adjustment constant (current released constant from internet reading which can dependend of the evolution of the measurement in the quatum mechanic research laboratories). 
 Dependencies: "SOLVE" from Advantage, HP-IL (for outputs logging into printer/screen). 
 
 
