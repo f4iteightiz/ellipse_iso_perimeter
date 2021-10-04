@@ -76,6 +76,6 @@ Final word:
 these functions which can be used in the HP41 must be understood in the terms of mocks in the area of agile working. 
 They are "Good enough" functions for quick evaluations of new ideas in ellipse-perimeter calculus.
 Any functions with precise results will have to be checked and released on higher precision calculators (HP71 for example) 
-and perhaps larger 64bits processors before any further use or creating mathematical conclusions.
+and perhaps larger 64bits processors before any further use or creating mathematical or physician conclusions.
 All the functions are NOT for any legal and productive use in the real world. Just use it in order to developp your creativity and thoughts.
 Contact me if you want to share new thoughts or have any question.
