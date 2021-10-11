@@ -41,12 +41,16 @@ i) download the programs from pyILPER into your HP41 (see HP-IL commands for dow
 List of programs; look at the description in the TXT files for using them.
 
 
-PEREL3 and PEREL4: calculate the perimeter given a and b (2 different convergences). 
+PEREL3 and PEREL4: calculate the perimeter given a and b (2 different convergences) using infinite series. 
+No dependencies.
+
+
+PEREL6: calculate the perimeter given a and b (2 different convergences) using convergence of AGM and MAGM. 
 No dependencies.
 
 
 PERELS: calculate the perimeter of an ellipse according the best suitable method (best convergency identified depending of the factor b/a). 
-Dependencies: PEREL3 and PEREL4.
+Dependencies: PEREL3 and PEREL4 (for now; implementation of PEREL6 in work).
 
 
 BPEREL: calculate the other half-parameter of an ellipse by a given perimeter. 
@@ -68,7 +72,7 @@ b) ellipse perimeter calculation based on other method.
 Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "CALPERE" (or other tbd).
 
 
-CALPERE: calculate the ellipse perimeter based on a cycloid adjusted with the Bohr Magneton electron Adjustment constant (current released constant from internet reading which can dependend of the evolution of the measurement in the quatum mechanic research laboratories). 
+CALPERE: calculate the ellipse perimeter based on a cycloid adjusted with the Bohr Magneton electron Adjustment constant (current released constant from internet data which can depend of the evolution of the measurement in the quatum mechanic research laboratories). So far achieved precision 0,04%.
 Dependencies: "SOLVE" from Advantage, HP-IL (for outputs logging into printer/screen). 
 
 
