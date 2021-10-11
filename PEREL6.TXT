@@ -1,0 +1,78 @@
+LBL "PEREL6" ; calcul ellipse perimeter acc geometrical mean
+             ; a ENTER b ENTER n XEQ PEREL6  
+             ;    a and b: half parameter of the ellipse
+             ;    n is max iter in 1000 to avoid unstable exit criteria
+             ; results in stack X:perimeter Y:HP41 precision achieved   
+             ;                  Z:number of iterations
+             ; under CC BY SA CreativeCommons 4.0 pascaldagornet at yahoo dot de 
+             ; use R 07..11. keep free Reg 00-06 for use with SOLVE from MATH
+             ; idea from here https://students.washington.edu/gl33/AGM.pdf
+             ;         https://www.hpmuseum.org/forum/thread-17003-page-2.html
+             ; date 2021 10 11
+             ;
+CF 00        ; flag 00 show the exit criter of precision limit achieved
+1000         
+*          
+STO 11       ; n entry in R11  (see DSE function; reduction by 1 by default)
+RDN          
+X>Y? 
+X<>Y
+X=0?         ; in case a = 0 this is a flat ellipse
+GTO 01
+STO 07       ; b in 07.. in case
+X^2
+X<>Y
+STO 08       ; a in 08.. in case.. and now is a bigger for sure than b
+X^2
++
+STO 09
+1
+STO 10
+; start main iteration loop 00
+LBL 00       
+  DSE 11    
+  GOTO 02    ; jump to further calculation if within the max iterations
+  GOTO 03    ; decrement max iteration then out if at 0
+  LBL 02
+  RCL 08
+  RCL X
+  RCL 07
+  *
+  SQRT
+  X<> 07
+  -
+  2
+  ST* 10
+  /
+  ST- 08
+  X^2
+  RCL 10
+  *
+  ST- 09
+  RCL 09
+  +
+  LASTX
+  X<Y?
+  GOTO 00
+LBL 03       ; lets go out and complete the calculus
+STO Z
+-            ; Delta in X,  (P) in Y   
+X<0?
+SF 00    
+ABS
+X<>Y         ; (P) in X, Delta in Y
+RCL 11       ; achieved Loops in X, (P) in Y and Delta in Z    
+STO T
+RDN          ; (P) in X and Delta in Y and loops in Z
+RCL 07
+/
+PI
+*          
+RTN
+; in case b = 0 flat ellipse it goes here out
+LBL 01       
+X<>Y
+4
+*
+RTN      
+END       
