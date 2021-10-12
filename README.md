@@ -22,6 +22,8 @@ Way for using the programms: read the TXT files and put them direct into the HP4
 a) download the files in a PC
 
 b) use the application hp41uc with "hp41uc.exe /t=SCPEREL.TXT /r /k". see https://sourceforge.net/projects/hp41uc/
+   or use nutstudio with "rpncomp --raw-output PEREL6.TXT". see https://drive.google.com/file/d/1cNQAbDJ9dGd7Bosswft3MCbLbHV55qDC/view
+
 
 c) upload the .raw file into the HP41 emulator V41 https://hp.giesselink.com/v41.htm
 
