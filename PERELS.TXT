@@ -1,12 +1,22 @@
-LBL "PERELS" ; calc ellipse perim acc series Cayley/GaussKummer a ENTER b XEQ PERELS
-CF 00        ; under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
-X>Y?         ; date 2021 09 07 Update R 00-06 freed for use with SOLVE from MATH
-X<>Y         ; http://www.numericana.com/answer/ellipse.htm#elliptic     
+LBL "PERELS";calc ellipse perim acc infinite series Cayley/GaussKummer 
+            ;and convergence AGM/MAGM
+            ;Entry:
+            ;  a ENTER b XEQ PERELS
+            ;Output:
+            ;  P in X (=perimeter)
+            ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+            ;http://www.numericana.com/answer/ellipse.htm#elliptic     
+            ;date 2021 09 07 Update R 00-06 freed for use with SOLVE from MATH
+            ;date 2021 10 12 Update header text
+            ;date 2021 10 14 Update with PEREL6
+CF 00       
+X>Y?         
+X<>Y         
 STO 07       ; b in 07
 X<>Y        
 STO 08       ; a in 08 and now is a bigger than b
 /
-.33
+.99
 X>Y?
 GOTO 01
 RCL 07
@@ -15,6 +25,16 @@ RCL 08
 XEQ "PEREL3" ; calc ellipse perim acc GaussKummer 
 RTN
 LBL 01
+RDN
+.02
+X>Y?
+GOTO 02
+RCL 07
+RCL 08
+1
+XEQ "PEREL6" ; calc ellipse perim acc AGM/MAGM convergence
+RTN
+LBL 02
 RCL 07
 RCL 08
 1
