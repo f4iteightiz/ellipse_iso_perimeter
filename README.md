@@ -1,12 +1,12 @@
 # ellipse_perimeter
-Few programs in FOCAL (HP41) for 
+Few programs in RPN (called FOCAL, too) for HP41 C/CV/CX 
 a) ellipse perimeter calculation
 b) ellipse isoperimeter curve representation (see png file)
 c) calculus and analysis (error calculation) of curves which define isoperimetercurves of ellipse
 
 
 These functions together creates a vivarium of functions which are compatible with others regarding memory (register) sharing; 
-and compatible with other FOCAL functions of modules ADVANTAGE (SOLVE) or MATH (SOL).
+and compatible with other RPN/FOCAL functions of modules ADVANTAGE (SOLVE) or MATH (SOL).
 
 
 Some programs use the printing functionality of HP-IL: it can be modified easily for having the data only being printed into the HP41 screen. 
@@ -47,12 +47,12 @@ PEREL3 and PEREL4: calculate the perimeter given a and b (2 different convergenc
 No dependencies.
 
 
-PEREL6: calculate the perimeter given a and b (2 different convergences) using convergence of AGM and MAGM. 
+PEREL6: calculate the perimeter given a and b using convergence calculation of AGM/MAGM. 
 No dependencies.
 
 
 PERELS: calculate the perimeter of an ellipse according the best suitable method (best convergency identified depending of the factor b/a). 
-Dependencies: PEREL3 and PEREL4 (for now; implementation of PEREL6 in work).
+Dependencies: PEREL3 and PEREL4 and PEREL6 (however it could be simplified for using PEREL6 only which is the quickest convergence for the whole area a/b 0..1).
 
 
 BPEREL: calculate the other half-parameter of an ellipse by a given perimeter. 
@@ -75,7 +75,7 @@ Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new funct
 
 
 CALPERE: calculate the ellipse perimeter based on a cycloid adjusted with the Bohr Magneton electron Adjustment constant (current released constant from internet data which can depend of the evolution of the measurement in the quatum mechanic research laboratories). So far achieved precision 0,04%.
-Dependencies: "SOLVE" from Advantage, HP-IL (for outputs logging into printer/screen). 
+Dependencies: "SOLVE" from Advantage, HP-IL (for outputs logging into printer/screen). More to come in this subject.
 
 
 Final word: 
