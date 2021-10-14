@@ -1,0 +1,53 @@
+LBL "RPEREL";search R according t =angle of isoperimeter curve in radian
+            ;t is the angle to the vertical: between 0 and pi/4
+            ;R is between 4*P and 4*P*0.900316316 (=4*P*SQRT(2*(2/PI)²))
+            ;Entry:
+            ;  t ENTER P XEQ RPEREL
+            ;Output:
+            ;  R in X
+            ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+            ;R 20-22 (R 00-19 are used in PERELS/C and 3 and 4 and 6)
+            ;date Oct13 2021
+            ;
+            ;
+RAD
+STO 20      ;P in R20    
+X<>Y          
+STO 21      ;t temporary stored there 
+X<0?
+RTN         ;stop if t<0
+PI
+4
+/
+X<Y?
+RTN         ;stop if t<pi/4
+0,000000001 ;b start
+2
+PI
+/
+RCL 20
+*           
+0,000000001
+-           ;b end
+"ZWFFR"
+ASTO 06     ;if using SOL of MATH instead of SOLVE from Advantage
+XEQ "SOLVE" ; find the b for having TAN(t)=b/a
+RCL 21
+TAN
+1/X
+*           ; result is a
+R-P         ; change to R (+angle)
+RTN
+LBL "ZWFFR"
+STO 22
+RCL 21
+TAN
+1/X
+*
+RCL 22
+;XEQ "PERELC" or "PERELS"
+XEQ "PERELS"
+RCL 20
+-
+RTN
+END
