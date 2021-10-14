@@ -1,0 +1,60 @@
+LBL "TPEREL";search t=angle according r=Radius of isoperimeter curve of P  
+            ;t is the angle to the vertical: between 0 and pi/4
+            ;R is between P/4 and 0.900316316*P/4 (=SQRT(2*(2/PI)²)*P/4)
+            ;Entry:
+            ;  r ENTER P XEQ TPEREL
+            ;Output:
+            ;  t in X  (in radian)
+            ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+            ;R 20-21 (R 00-19 are used in PERELS/C and 3 and 4 and 6)
+            ;date Oct13 2021 
+            ;
+            ;
+RAD
+STO 20      ;P in R20        
+X<>Y          
+STO 21      ;r stored for further use
+X<>Y
+4
+/
+X<Y?        
+GOTO 01     ;check if a not larger than P/4 because that cannot be possible
+2
+PI
+/
+X^2
+2
+*
+SQRT
+RCL 21
+X<Y?
+GOTO 01
+0,000000001  ;t start
+PI
+4
+/
+0,000000001
+-           ; t end
+"ZWFFT"
+ASTO 06     ;if using SOL of MATH instead of SOLVE from Advantage
+XEQ "SOLVE"   
+RTN
+LBL "ZWFFT"
+STO 22
+SIN
+RCL 21
+*
+RCL 22
+COS
+RCL 21
+*
+;XEQ "PERELC" or XEQ "PERELS"
+XEQ "PERELS"
+RCL 20
+-
+RTN
+LBL 01
+"r TOO LARGE/SMALL"
+AON
+RTN
+END
