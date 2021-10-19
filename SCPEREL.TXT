@@ -1,0 +1,108 @@
+LBL "SCPEREL" ;print a b for drwg ellipse of isoperim P in S steps
+             ;a and b are the ellipse half parameter
+             ;Step S  2..100000 in area 0.. 0.636619771 ((2/pi)* P / 4)
+             ;
+             ;Entry
+             ;  S ENTER  P XEQ SCPEREL
+             ;Output
+             ;  --START-----
+             ;  ELLIPSE CALC
+             ;  ISOPERIME OF
+             ;   16.00000000 ***
+             ;   IN
+             ;   300.0000000 ***
+             ;   STEPS
+             ;  X-Y & R-ANG>
+             ;   2.546479085 ***   (=X)
+             ;   2.546479093 ***   (=Y)
+             ;   3.601265264 ***   (=Radius)
+             ;   0.785398162 ***   (=Angle in rad)
+             ;  X-Y & R-ANG>
+             ;   2.537990821 ***
+             ;   ...
+             ;require a printer or a terminal emulator/pyilper for logging 
+             ;put outputs into desmos.com for graphic representation
+             ;
+             ;R22-23, R 20-21 in BPEREL, R 00-19 are used in PERELS and 3 and 4
+             ;
+             ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+             ;
+             ;create raw file with "hp41uc.exe /t=SCPEREL.TXT /r /k" or             
+             ;create raw file with "rpncomp --raw-output SCPEREL.TXT" and upload
+             ;into V41 PC emulator for pyILPER virtual drive  
+             ;
+             ;change log
+             ;2021 10 05 comments modified
+             ;2021 10 12 header with decr of input outputs
+             ;2021 10 14 less PRA, XROM instead of PRA PRX
+             ;
+             ;
+RAD            
+ADV      
+"--START-----"
+;PRA      
+XROM  29,08
+"ELLIPSE CALC" 
+;PRA     
+XROM  29,08       
+"ISOPERIME OF" 
+;PRA
+XROM  29,08
+;PRX
+XROM  29,20
+" IN         "
+;PRA
+XROM  29,08
+STO 20       ;P in R 20 (for later); same R 20 like in BPEREL
+X<>Y           
+0.636619771  ;2 / PI  
+X<>Y
+;PRX
+XROM  29,20
+" STEPS      "
+;PRA
+XROM  29,08
+/
+*
+4
+/
+STO 22       ;Step decrement in 22
+0.636619771   
+RCL 20
+*
+4
+/
+STO 23       ;(2 / PI)*P/4   start of calculation
+LBL 01       ;main loop
+  "X-Y & R-ANG>"
+  ;PRA
+  XROM  29,08
+  ;PRX  ;output x (a)
+  XROM  29,20       
+  RCL 20
+  XEQ "BPEREL"
+  ;PRX
+  XROM  29,20  ;output x (b)
+  RCL 23
+  R-P
+  ;PRX
+  XROM  29,20
+  X<>Y
+  PI
+  2
+  /
+  X<>Y
+  -
+  ;PRX
+  XROM  29,20
+  RCL 22
+  ST- 23
+  RCL 23
+  X>0?
+  GOTO 01
+DEG
+"--END-------"
+;PRA
+XROM  29,08
+RTN
+END
