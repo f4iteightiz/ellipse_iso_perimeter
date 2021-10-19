@@ -1,0 +1,62 @@
+LBL "BPEREL";search halfparameter b of ellipse acc a and perimeter 
+            ;Entry:
+            ;  a ENTER P XEQ BPEREL
+            ;Output:
+            ;  b in X
+            ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+            ;R 20-21 (R 00-19 are used in PERELS and 3 and 4)
+            ;date Oct5 2021 update comments
+            ;date Oct12 2021 update header/comments/ASTO 06
+            ;
+            ;
+STO 20      ;P in R20
+CF 03         
+X<>Y          
+STO 21      ;a temporary stored there in order to decide if a or b  a > b
+X<>Y
+4
+/
+X=Y?        ;check if this is a degenerated ellipse = a line which mean P = 4*a
+RTN
+X<Y?
+GOTO 01     ;check if a not larger than 4*P because that cannot be possible
+2
+*
+PI
+/
+X<Y?        ;check if a is smaller than the searched b. 
+            ;if not, we will search a instead of b
+SF 03
+0,000000001
+-
+0,000000001
+FC?C 03
+XEQ 02
+"ZWFFB"
+ASTO 06     ;if using SOL of MATH instead of SOLVE from Advantage
+XEQ "SOLVE"   
+RTN
+LBL "ZWFFB"
+RCL 21
+XEQ "PERELS"
+RCL 20
+-
+RTN
+LBL 02
+RCL 20
+4
+/
+0,000000001
+-
+RCL 20
+2
+/
+PI
+/
+0,000000001
++
+RTN
+LBL 01
+"a TOO LARGE"
+AON
+END
