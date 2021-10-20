@@ -43,12 +43,21 @@ i) download the programs from pyILPER into your HP41 (see HP-IL commands for dow
 List of programs; look at the description in the TXT files for using them.
 
 
+ellipseperim_iso_surface.py
+represent with the help of matplotlib a 3D surface for iso-perimeter representation (X-Y is a-b half-parameter; Z is the value of the Iso).
+
+
 PEREL3 and PEREL4: calculate the perimeter given a and b (2 different convergences) using infinite series. 
 No dependencies.
 
 
 PEREL6: calculate the perimeter given a and b using convergence calculation of AGM/MAGM. 
 No dependencies.
+
+
+PEREL7: calculus of ellipse perimeter using a modified shortened cycloid function. A modified Bohr Magneton electron Adjustment constant was used 
+(the constant 1.159.. = ae*1000 gave a good approximation; a modified constant into a function gave a better precision of 0.00173%).
+Dependencies of MATH "SOL" or Advantage "SOLVE".
 
 
 PERELS: calculate the perimeter of an ellipse according the best suitable method (best convergency identified depending of the factor b/a). 
@@ -68,14 +77,14 @@ SCPEREL: output several isoperimeter points of an ellipse by a given perimeter.
 Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen).
 
 
-CMPPERE: compare 
+CMPPER1: compare 
 a) ellipse perimeter calculation based on infinite serial calculations and 
-b) ellipse perimeter calculation based on other method.
-Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "CALPERE" (or other tbd).
+b) ellipse perimeter calculation based on PEREL7.
+Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "PEREL7" (or other tbd).
 
 
-CALPERE: calculate the ellipse perimeter based on a cycloid adjusted with the Bohr Magneton electron Adjustment constant (current released constant from internet data which can depend of the evolution of the measurement in the quatum mechanic research laboratories). So far achieved precision 0,04%.
-Dependencies: "SOLVE" from Advantage, HP-IL (for outputs logging into printer/screen). More to come in this subject.
+SCFPER1: calculus of several points of a modified shortened cycloid with a curve f(t) curve replacing the Bohr Magneton electron Adjustment constant * 1000 in (t^ae*1000 change into t^f(t)) for use in the PEREL7 function. 
+Based on the calculated points of this curve, a curve fitting was done and a good guess of a function was defined. See PEREL7.
 
 
 Final word: 
