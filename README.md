@@ -1,4 +1,4 @@
-# ellipse_perimeter
+# ellipse_iso_perimeter
 Few programs in RPN (called FOCAL, too) for HP41 C/CV/CX 
 a) ellipse perimeter calculation
 b) ellipse isoperimeter curve representation (see pdf file)
