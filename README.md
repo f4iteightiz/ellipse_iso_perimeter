@@ -53,6 +53,7 @@ No dependencies.
 
 PEREL6: calculate the perimeter given a and b using convergence calculation of AGM/MAGM. 
 No dependencies.
+Use of http://www.ams.org/notices/201208/rtx120801094p.pdf from author http://semjonadlaj.com/
 
 
 PEREL7: calculus of ellipse perimeter using a modified shortened cycloid function. A modified Bohr Magneton electron Adjustment constant was used 
