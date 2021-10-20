@@ -1,0 +1,112 @@
+LBL "CMPPER1" ;out a b for drwg ellipse isoperim P in S steps
+              ;with deviations to another func for ellipse perimeter calculation
+              ;Inputs
+              ;  S ENTER  P XEQ CMPPER1
+              ;  Step S  2..100000 in area 0.. 0.636619771 (* P / 4)
+              ;  P curve of isoperimeter value
+              ;Outputs
+              ;  a and b
+              ;  with output of approx/straight/interpolation function
+              ;  put outputs into desmos.com for visualization
+              ;use R 25..27
+              ;  R 22-24 in PEREL7
+              ;  R 20-21 used in BPEREL
+              ;  R 00-19 are used in PERELS and 3 and 4 and 6
+              ;require a printer or a terminal emulator ideally pyilper for log
+              ;
+              ;create raw files with "hp41uc.exe /t=CMPPER1.TXT /r /k"
+              ; then upload in PC emulator / virtual drive / HP41 hardware
+              ;
+              ;under CC BY SA CreativeCommons 4.0 pascaldagornet at yahoo dot de
+              ;
+              ;change log
+              ;2021 10 07 delta added (not only in %)
+              ;2021 10 14 messages cleaned up / header update
+              ;2021 10 18 re-organize outputs, more comments
+              ;2021 10 19 modify PEREL7
+              ;
+RAD            
+ADV   
+"--START-----"
+PRA           
+"ELLIPSE CALC" 
+PRA            
+"ISOPERIME OF" 
+PRA            
+PRX            
+" IN         "
+PRA
+STO 20        ; P in R 20 (for later); same R 20 like in BPEREL
+X<>Y           
+0.636619771   ; 2 / PI  
+X<>Y
+PRX
+" STEPS      "
+PRA
+/
+*
+4
+/
+STO 25        ; Step decrement in 25
+0.636619771   
+RCL 20        ; P in R20
+*
+4
+/
+STO 26        ; (2 / PI)*P/4   start of calculation
+LBL 01
+  "----------"
+  ; calculate a and b for having the perimeter P 
+  ; (true value; approx only due to calc precision) 
+  PRA  
+  "X & Y Plan"
+  PRA
+  PRX           ; output x (a)
+  RCL 20
+  XEQ "BPEREL"
+  PRX           ; output x (b)
+  STO 27
+  RCL 26
+  R-P
+  "  R & ANG Plan"
+  PRA
+  PRX
+  X<>Y
+  PI
+  2
+  /
+  X<>Y
+  -
+  PRX
+  ;
+  ; calculate now perimeter of (a,b) value with new function
+  RCL 27
+  RCL 26
+  XEQ "PEREL7" ; approx function
+  "  Func Is"
+  PRA
+  PRX
+  ;
+  ; calculate now the delta, perimeter vs. value with new function
+  RCL 20
+  -
+  "  Func Is-Plan" ; 15char maximum
+  PRA
+  PRX
+  RCL 20
+  /
+  100
+  *
+  "  Delta in %" ; 15char maximum
+  PRA
+  PRX
+  RCL 25
+  ST- 26
+  RCL 26
+  X>0?
+  GOTO 01
+DEG
+"--END-------"
+PRA  
+RTN
+END
