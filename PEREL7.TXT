@@ -1,0 +1,131 @@
+LBL "PEREL7" ;ellipse perimeter calculus
+             ;modified cycloid
+             ;
+             ;input 
+             ; a ENTER b ENTER XEQ PEREL7
+             ; a and b half ellipse parameter
+             ;
+             ;output
+             ; Perimeter
+             ;
+             ;R22-24 used
+             ;R07-08 A and B
+             ;
+             ;
+             ;first try
+             ;shortened cycloid giving result of error < 0.0256273% with FOCAL
+             ; https://en.wikipedia.org/wiki/Anomalous_magnetic_dipole_moment
+             ; by use of constant 1.159652182 factor electron bohr magneton as Z
+             ; exponent instead of 1 in X=r*t^Z -c*sin(t)
+             ; https://de.wikipedia.org/wiki/Zykloide
+             ;
+             ;improvement 1
+             ; 1.159652182 factor corrected after analysis with SCFPER1
+             ; and definition of a new curve fitting. New error < 0.0017254%
+             ; at R 0.9564309 (Perim = 4) and Theta 0.269498rad
+             ;
+             ;improvement 2
+             ; tbd
+             ;
+             ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+             ;
+             ;change log
+             ;2021 10 05 original
+             ;2021 10 19 rework improvement 1
+             ;
+X>Y?          
+X<>Y          
+X=0?          
+GTO 04
+STO 07       ;b in 07
+X<>Y
+STO 08       ;a in 08 and now is a bigger than b
+RAD       
+2
+SQRT
+PI
+/
+CHS
+0.5
++
+STO 22       ;secure reuse param 1/2 - SQRT(2)/pi
+0.000000001  ; search for t
+0.999999999
+"ZWFT"
+ASTO 06      ; in case of use of SOL from MATH module
+XEQ "SOLVE"  ;solve from Advantage
+PI
+*
+COS
+CHS
+1
++
+RCL 22
+*
+CHS
+1
++
+1/X
+RCL 07
+X^2
+RCL 08
+X^2
++
+SQRT
+*
+4
+*
+RTN
+LBL "ZWFT"   ;calulating the t for the atan(b/a) angle
+STO 23       ;secure parameter t
+PI
+*
+SIN
+RCL 22
+*
+CHS
+STO 24       ;temporary storage
+RCL 23       ;t
+-0.0797049
+*
+0.186975
++
+RCL 23
+1.15542
+*
+CHS
+1.05411
+X<>Y
+Y^X
+*
+RCL 23
+0.158842
+Y^X
+*
+1.03111
++
+RCL 23
+X<>Y
+Y^X
+PI
+*
+4
+/
+ST+ 24
+RCL 08
+RCL 07
+/
+ATAN
+ST+ 24
+PI
+2
+/
+ST- 24
+RCL 24
+RTN
+LBL 04
+X<>Y
+4
+*
+RTN
+END
