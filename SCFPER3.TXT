@@ -1,10 +1,11 @@
 LBL "SCFPER3" ;scanning b for drwg ellipse isoperim 4 in S steps
              ;b is the parameter in interpolation conic (ellipse)
              ;X^2 +bXY +cY^2 +dX +eY +F =0 for an isoperimeter curve
+             ;THIS IS NOT THE ELLIPSE HALF PARAMETER
              ;This program search all possible
              ; values of b for the interval X Y 0..2n/pi Based on the results,
              ; it will be possible to curve fit a function 
-             ; F(half-parameter of ellipse)
+             ; F(half-parameters of ellipse)
              ; solved by using a true calculation of perimeter of value 4
              ;
              ;Inputs
@@ -15,8 +16,9 @@ LBL "SCFPER3" ;scanning b for drwg ellipse isoperim 4 in S steps
              ;  X 
              ;  Y 
              ;  Radius 
-             ;  Angle    .. all for ideal isoperimeter
-             ;  b        .. for the ideal allipse
+             ;  Angle    .. all above for ideal isoperimeter
+             ;  b        .. for the ideal ellipse fitting curve
+             ;  X/Y      .. as additional output (X and Y same as above)
              ;
              ;  put outputs into desmos.com for visualization
              ;
@@ -35,8 +37,9 @@ LBL "SCFPER3" ;scanning b for drwg ellipse isoperim 4 in S steps
              ; 0.636619774 ***
              ; 0.900316316 ***
              ; 0.785398162 ***
-             ; Conic b @ XY >
+             ;Conic b & X/Y >
              ; 1.7xxxxxxxx ***
+             ; yyyyyyyyyyy ***
              ;------------
              ;X-Y & R-ANG >
              ; 0.635346532 ***
@@ -57,6 +60,7 @@ LBL "SCFPER3" ;scanning b for drwg ellipse isoperim 4 in S steps
              ;change log
              ;2021 10 27 Creation
              ;2021 10 29 Release
+             ;2021 11 03 X/Y output additionally
              ;
 RAD        
 CF 00    
@@ -108,12 +112,17 @@ LBL 01
   PRX
   1.            ;will search the b between 1 and 3.99999 
                 ;0.5 is a parabel, so it must be > 0.5
-  3.99999999    ;4 is a degenerated ellipse, so it must be <4
+  3.            ;4 is a degenerated ellipse, so it must be <4. 
+                ;3 Works
   "BCON"
   ASTO 06       ;if using SOL of MATH instead of SOLVE from Advantage
   XEQ "SOLVE"   ;finding the b of the conic for passing through the isoperimeter
-  " Conic b @ XY >"
+  "Conic b & X/Y >"
   PRA
+  PRX
+  RCL 23
+  RCL 24
+  /  
   PRX
   RCL 22
   ST- 23
