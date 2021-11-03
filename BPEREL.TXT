@@ -1,12 +1,23 @@
-LBL "BPEREL";search halfparameter b of ellipse acc a and perimeter 
+LBL "BPEREL" ;search halfparameter b of and ellipse according a and perimeter P
+            ;
             ;Entry:
             ;  a ENTER P XEQ BPEREL
+            ;
             ;Output:
             ;  b in X
+            ;
             ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+            ;
             ;R 20-21 (R 00-19 are used in PERELS and 3 and 4)
-            ;date Oct5 2021 update comments
-            ;date Oct12 2021 update header/comments/ASTO 06
+            ;
+            ;create raw files with "hp41uc.exe /t=BPEREL.TXT /r /k"
+            ; then upload in PC emulator / virtual drive / HP41 hardware
+            ;
+            ;change log:
+            ;2021 10 05 update comments
+            ;2021 10 12 update header/comments/ASTO 06
+            ;2021 10 28 Update PERELC instead of PERELS: AVIEW instead of AON
+            ;2021 11 03 Header update w/ create raw file
             ;
             ;
 STO 20      ;P in R20
@@ -33,12 +44,12 @@ SF 03
 FC?C 03
 XEQ 02
 "ZWFFB"
-ASTO 06     ;if using SOL of MATH instead of SOLVE from Advantage
-XEQ "SOLVE"   
+ASTO 06     ;for using SOL of MATH instead of SOLVE from Advantage
+XEQ "SOLVE" ;or SOL of MATH module
 RTN
 LBL "ZWFFB"
 RCL 21
-XEQ "PERELS"
+XEQ "PERELC" ;or XEQ "PERELS"
 RCL 20
 -
 RTN
@@ -58,5 +69,5 @@ PI
 RTN
 LBL 01
 "a TOO LARGE"
-AON
+AVIEW
 END
