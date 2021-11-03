@@ -113,7 +113,7 @@ Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new funct
 
 
 SCFPER1: calculus of several points of a modified shortened cycloid with a curve f(t) curve replacing the Bohr Magneton electron Adjustment constant 
-* 1000 in (t^ae*1000 change into t^f(t)) for use in the PEREL7 function. 
+which is multiplied by 1000 in (t^ae*1000 change into t^f(t)) for use in the PEREL7 function. 
 Based on the calculated points of this curve, a curve fitting was done and a good guess of a function was defined. See PEREL7.
 
 
