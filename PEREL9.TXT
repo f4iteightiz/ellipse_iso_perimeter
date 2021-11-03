@@ -1,0 +1,126 @@
+LBL "PEREL9" ;ellipse perimeter calculus
+             ;
+             ;based on an isoperimeter interpolation ellipse 
+             ;X^2 +bXY +cY^2 +dX +eY +f =0 where
+             ;c and d and e and f parameter were found with the conditions
+             ; 1. the isoperimeter curve pass by (0,1)
+             ; 2. .. pass by (2/pi,2/pi)
+             ; 3. .. has tangent horizontal at (0,1)
+             ; 2. .. has tangent (1,1) at (2/pi,2/pi)
+             ;b 1.65722 was estimated as the best fitting mindest 
+             ; sum of quadrat value calculated
+             ; 
+             ;input 
+             ; a ENTER b ENTER XEQ PEREL9
+             ; a and b half ellipse parameter
+             ;
+             ;output
+             ; Perimeter (approximation)
+             ;
+             ;R22-24 used
+             ;R07-08 A and B
+             ;
+             ;see https://www.desmos.com/calculator/sze8ypbo28?lang=de
+             ;
+             ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+             ;
+             ;create raw files with "hp41uc.exe /t=PEREL9.TXT /r /k"
+             ; then upload in PC emulator / virtual drive / HP41 hardware
+             ;
+             ;change log
+             ;2021 10 28 creation
+             ;2021 11 03 update header, upload github
+             ;
+X>Y?          
+X<>Y          
+X=0?          
+GTO 04
+STO 07       ;(X)b in 07
+X<>Y
+STO 08       ;(Y)a in 08 and now is a bigger than b
+;
+1.64079      ;b of the conic formula above is a constant for now
+STO 25       ;for later use of b (from conic equation) as parameter
+2
+PI
+-
+X^2
+*
+12
++
+PI
+4
+*
+-
+2
+PI
+-
+X^2
+/
+STO 26       ;for later use of c (not dependent of n) see conic equation
+CHS
+1
++
+4
+*
+PI
+/
+RCL 25
+-
+STO 27       ;for later use: this is e/n
+RCL 26
++
+CHS
+STO 28       ;f/n**2 
+;
+;lets solve equation of second degree
+;first create the C
+RCL 08       ;Y of ellipse RCL xx 
+X^2
+ST* 26
+RCL 25
+RCL 08
+*
+RCL 07
+*
+ST+ 26
+RCL 07
+X^2
+ST+ 26       ;R26 is now C
+;
+;create B
+-1
+ST* 25
+RCL 07
+ST* 25
+RCL 08
+RCL 27
+*
+ST+ 25
+;
+;A is R28
+;now Mitternacht Formel
+RCL 26
+RCL 28
+*
+4
+*
+CHS
+RCL 25
+X^2
++
+SQRT
+RCL 25
++
+CHS
+RCL 28
+/
+2
+*
+RTN
+LBL 04
+X<>Y
+4
+*
+RTN
+END
