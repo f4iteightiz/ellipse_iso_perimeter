@@ -1,0 +1,206 @@
+LBL "SCFPER3" ;scanning b for drwg ellipse isoperim 4 in S steps
+             ;b is the parameter in interpolation conic (ellipse)
+             ;X^2 +bXY +cY^2 +dX +eY +F =0 for an isoperimeter curve
+             ;This program search all possible
+             ; values of b for the interval X Y 0..2n/pi Based on the results,
+             ; it will be possible to curve fit a function 
+             ; F(half-parameter of ellipse)
+             ; solved by using a true calculation of perimeter of value 4
+             ;
+             ;Inputs
+             ;  S ENTER XEQ SCFPER3
+             ;  Step S  2..100000 in area 0..2/pi
+             ;
+             ;Outputs
+             ;  X 
+             ;  Y 
+             ;  Radius 
+             ;  Angle    .. all for ideal isoperimeter
+             ;  b        .. for the ideal allipse
+             ;
+             ;  put outputs into desmos.com for visualization
+             ;
+             ;typical output
+             ;
+             ;--START-----
+             ;ELLIPSE CALC
+             ;ISOPERIME OF
+             ; 4.000000000 ***
+             ; IN
+             ; 500.0000000 ***
+             ; STEPS
+             ;------------
+             ;X-Y & R-ANG >
+             ; 0.636619771 ***
+             ; 0.636619774 ***
+             ; 0.900316316 ***
+             ; 0.785398162 ***
+             ; Conic b @ XY >
+             ; 1.7xxxxxxxx ***
+             ;------------
+             ;X-Y & R-ANG >
+             ; 0.635346532 ***
+             ; 0.637891741 ***
+             ; .....
+             ; 
+             ;use R22-28
+             ;  R 20-21 in BPEREL 
+             ;  R 00-19 are used in PERELS and 3 and 4 and 6
+             ;
+             ;require a printer or a terminal emulator ideally pyilper for log
+             ;
+             ;create raw files with "hp41uc.exe /t=SCFPER3.TXT /r /k"
+             ; then upload in PC emulator / virtual drive / HP41 hardware
+             ;
+             ;under CC BY SA CreativeCommons 4.0 pascaldagornet at yahoo dot de
+             ;
+             ;change log
+             ;2021 10 27 Creation
+             ;2021 10 29 Release
+             ;
+RAD        
+CF 00    
+ADV           ;printer or a terminal emulator ideally pyilper recommended
+"--START-----"
+PRA 
+"ELLIPSE CALC" 
+PRA            
+"ISOPERIME OF" 
+PRA            
+4             ;fix the perimeter of 4 here
+STO 20        ;P in R 20 (for later); same R 20 like in BPEREL
+PRX            
+" IN         "
+PRA
+X<>Y           
+PRX
+" STEPS      "
+PRA
+0.636619771   ;2 / PI  
+X<>Y
+/
+STO 22        ;Step decrement in 22
+0.636619771   
+RCL 20
+*
+4
+/
+STO 23        ;(2 / PI)*P/4   start of calculation
+LBL 01
+  "------------"
+  PRA
+  "X-Y & R-ANG >"
+  PRA
+  PRX           ;output x (a)   this area will be scanned
+  RCL 20
+  XEQ "BPEREL"
+  PRX           ;output y (b)
+  STO 24
+  RCL 23
+  R-P
+  PRX
+  X<>Y
+  PI
+  2
+  /
+  X<>Y
+  -
+  PRX
+  1.            ;will search the b between 1 and 3.99999 
+                ;0.5 is a parabel, so it must be > 0.5
+  3.99999999    ;4 is a degenerated ellipse, so it must be <4
+  "BCON"
+  ASTO 06       ;if using SOL of MATH instead of SOLVE from Advantage
+  XEQ "SOLVE"   ;finding the b of the conic for passing through the isoperimeter
+  " Conic b @ XY >"
+  PRA
+  PRX
+  RCL 22
+  ST- 23
+  RCL 23
+  X>0?
+GOTO 01
+DEG
+"---ENDE-----"
+PRA
+RTN
+LBL "BCON"  
+STO 25          ; for later use of b (from conic equation) as parameter
+2
+PI
+-
+X^2
+*
+12
++
+PI
+4
+*
+-
+2
+PI
+-
+X^2
+/
+STO 26          ; for later use of c (not dependent of n) see conic equation
+CHS
+1
++
+4
+*
+PI
+/
+RCL 25
+-
+STO 27          ; for later use: this is e/n
+RCL 26
++
+CHS
+STO 28          ; f/n**2 
+;
+; lets solve equation of second degree
+; first create the C
+RCL 24          ;Y of ellipse RCL xx 
+X^2
+ST* 26
+RCL 25
+RCL 24
+*
+RCL 23          ;X of ellipse RCL xx 
+*
+ST+ 26
+RCL 23
+X^2
+ST+ 26          ; R26 is now C
+; create the B
+-1
+ST* 25
+RCL 23
+ST* 25
+RCL 24
+RCL 27
+*
+ST+ 25
+; A is R28
+; Mitternacht Formel
+RCL 26
+RCL 28
+*
+4
+*
+CHS
+RCL 25
+X^2
++
+SQRT
+RCL 25
++
+CHS
+RCL 28
+/
+2
+*
+RCL 20
+-
+RTN
+END
