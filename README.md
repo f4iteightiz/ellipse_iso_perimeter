@@ -108,14 +108,14 @@ SCFPER1: calculus of several points of a modified shortened cycloid with a curve
 Based on the calculated points of this curve, a curve fitting was done and a good guess of a function was defined. See PEREL7.
 
 
-TPEREL: calculate the angle of the cosinus elliptique when its height (or radius) is given.
-Cosinus elliptique: Ce(angle)=(pi*N(tan(angle)**2))/(2*SQRT(1+tan(angle))*M(tan(angle)))
+TPEREL: calculate the angle of the cosinus elliptique ("Ce") when its overall ellipse radius is given. See the explanation in the program file
+To Cosinus elliptique: Ce(angle)=(pi*N(tan(angle)**2))/(2*SQRT(1+tan(angle))*M(tan(angle)))
   M and N are the AGM and MGM (see PEREL6)
-  input height/radius: between 1 and 0.9003.. (=2*SQRT(2)/pi)
-  output angle: between 0 and pi/4
+  Ce(angle): between 1 and 0.9003.. (=2*SQRT(2)/pi)
+  angle: between 0 and pi/4 (= atan(a/b) where a<b)
 
 
-RPEREL: calculate the radius of the cosinus elliptique when its angle is given (see TPEREL).
+RPEREL: calculate the radius of the cosinus elliptique when its angle is given (see TPEREL and the explanation in the program file).
 
 
 Final word: 
