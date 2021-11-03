@@ -76,6 +76,14 @@ PEREL7: calculus of ellipse perimeter using a modified shortened cycloid functio
 Dependencies of MATH "SOL" or Advantage "SOLVE".
 
 
+PEREL9: calculus of ellipse perimeter using an approximation function for the iso-perimeter curves. Further works planned. 
+The first level of calculus is implemented: isoperimeter function is curve fitted with an ellipse and a constant 1.64079 (see file header).
+The second level of calculus (instead of constant 1.64079, use a function): an hyperbola was evaluated and will be worked out the next weeks/months.
+The third level: tbd
+Each added level increase the approximation results.
+For the reason conics are used (polynom of degree 2 in X and Y), the solving is done by usual mathematic formula.
+
+
 PERELS: calculate the perimeter of an ellipse according the best suitable method (best convergency identified depending of the factor b/a). 
 Dependencies: PEREL3 and PEREL4 and PEREL6.
 
