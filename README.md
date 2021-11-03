@@ -1,6 +1,8 @@
 # ellipse_iso_perimeter
 Few programs in RPN (called FOCAL, too) for HP41 C/CV/CX 
-a) ellipse perimeter calculation
+a) ellipse perimeter calculation (infinite series or exact AGM/MAGM, with approximations due to the limitation of the hardware precision), 
+     or with the help of new models (so far only approximations available for modified shortened cycloids, ellipe/hyperbola etc.).
+     The new concept of cosinus elliptique, when coming in use, is only another explanation of the AGM/MAGM methods from author http://semjonadlaj.com/
 b) ellipse isoperimeter curve representation (see pdf file)
 c) calculus and analysis (error calculation) of curves which define isoperimetercurves of ellipse
 
@@ -9,10 +11,22 @@ These functions together creates a vivarium of functions which are compatible wi
 and compatible with other RPN/FOCAL functions of modules ADVANTAGE (SOLVE) or MATH (SOL).
 
 
-Some programs use the printing functionality of HP-IL: it can be modified easily for having the data only being printed into the HP41 screen. 
+The memory size of HP41 is limited. 
+For now, an HP41CV/CX is used without dynamic use of X-Memory. 
+The target will remain to stay in the programm memory of an HP41CV/CX 
+(if an HP41C is used, standard memory extensions are required). 
+Programs will be reworked or re-constructed in order to stay in the memory size of the HP41CV/CX. 
+If the memory size is coming short, then the programs will be adapted for the use of the X-Memory. 
+Other possibilities will be to transform the programs in microcode and to transfer them into a Nov64d as new module. 
+As you can see, several possibilities exists for keeping using an HP41CV/CX for a longer time.
 
 
-However, the recommended setup is an HP41 connected to pyILPER on a PC via a PILBOX 
+Some programs use the printing functionality of HP-IL: it can be modified easily for having the data only being printed into the HP41 screen. The issue with this is a print delay has to be programmed for the reader having time to read the screen of the HP41.
+
+
+However, the recommended setup is an HP41 connected to 
+a) a paper HP-IL printer 
+b) or pyILPER on a PC via a PILBOX 
 (in this case, the printing will be done on a window in the PC and the results can be easily transfered to complementary analysis 
 at DESMOS.COM for example via a copy/paste of a PC editor).
 
@@ -21,23 +35,24 @@ Way for using the programms: read the TXT files and put them direct into the HP4
 
 a) download the files in a PC
 
-b) use the application hp41uc with "hp41uc.exe /t=SCPEREL.TXT /r /k". see https://sourceforge.net/projects/hp41uc/
-   or use nutstudio with "rpncomp --raw-output PEREL6.TXT". see https://drive.google.com/file/d/1cNQAbDJ9dGd7Bosswft3MCbLbHV55qDC/view
+b) use the application hp41uc with "hp41uc.exe /t=SCPEREL.TXT /r /k". see https://sourceforge.net/projects/hp41uc/ 
+   (in Windows PC directly or in Linux PCs with the help of "Wine")
+   
+c) or use nutstudio with "rpncomp --raw-output PEREL6.TXT". see https://drive.google.com/file/d/1cNQAbDJ9dGd7Bosswft3MCbLbHV55qDC/view
+   
+d) upload the .raw file into the HP41 emulator V41 https://hp.giesselink.com/v41.htm
 
+e) and use the programms there
 
-c) upload the .raw file into the HP41 emulator V41 https://hp.giesselink.com/v41.htm
+f) ... or more ...
 
-d) and use the programms there
+g) install pyILPER on your PC (see anaconda package)
 
-e) ... or more ...
+h) transfer the programs from V41 into a virtual drive in pyILPER
 
-f) install pyILPER on your PC (see anaconda package)
+i) connect your HP41 with the PC via pilbox. Here you can order a pilbox http://www.jeffcalc.hp41.eu/hpil/index.html#pilbox
 
-g) transfer the programs from V41 into a virtual drive in pyILPER
-
-h) connect your HP41 with the PC via pilbox. Here you can order a pilbox http://www.jeffcalc.hp41.eu/hpil/index.html#pilbox
-
-i) download the programs from pyILPER into your HP41 (see HP-IL commands for downloading programs); then use them
+j) download the programs from pyILPER into your HP41 (see HP-IL commands for downloading programs); then use them
 
 
 List of programs; look at the description in the TXT files for using them.
@@ -62,11 +77,16 @@ Dependencies of MATH "SOL" or Advantage "SOLVE".
 
 
 PERELS: calculate the perimeter of an ellipse according the best suitable method (best convergency identified depending of the factor b/a). 
-Dependencies: PEREL3 and PEREL4 and PEREL6 (however it could be simplified for using PEREL6 only which is the quickest convergence for the whole area a/b 0..1).
+Dependencies: PEREL3 and PEREL4 and PEREL6.
+
+
+PERELC: calculate the perimeter of an ellipse according convercence algorithm (AGM, MAGM), now only PEREL6 listed.
+Dependencies: PEREL6.
+Remark: PERELS or PERELC will give the same result. Use of PEREL6 only is recommended for now.
 
 
 BPEREL: calculate the other half-parameter of an ellipse by a given perimeter. 
-Dependencies: PERELS, SOLVE from Advantage 
+Dependencies: PERELS (or PEREL6), SOLVE from Advantage 
 (or "SOL" from Math module by replacing the Line 
 XEQ "SOLVE" 
 with 
@@ -79,13 +99,23 @@ Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen).
 
 
 CMPPER1: compare 
-a) ellipse perimeter calculation based on infinite serial calculations and 
-b) ellipse perimeter calculation based on PEREL7.
+a) exact ellipse perimeter calculation based on infinite serial calculations or AGM/MAGM and 
+b) ellipse perimeter calculation based on PEREL7 or others.
 Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "PEREL7" (or other tbd).
 
 
 SCFPER1: calculus of several points of a modified shortened cycloid with a curve f(t) curve replacing the Bohr Magneton electron Adjustment constant * 1000 in (t^ae*1000 change into t^f(t)) for use in the PEREL7 function. 
 Based on the calculated points of this curve, a curve fitting was done and a good guess of a function was defined. See PEREL7.
+
+
+TPEREL: calculate the angle of the cosinus elliptique when its height (or radius) is given.
+Cosinus elliptique: Ce(angle)=(pi*N(tan(angle)**2))/(2*SQRT(1+tan(angle))*M(tan(angle)))
+  M and N are the AGM and MGM (see PEREL6)
+  input height/radius: between 1 and 0.9003.. (=2*SQRT(2)/pi)
+  output angle: between 0 and pi/4
+
+
+RPEREL: calculate the radius of the cosinus elliptique when its angle is given (see TPEREL).
 
 
 Final word: 
@@ -95,3 +125,6 @@ Any functions with precise results will have to be checked and released on highe
 and perhaps larger 64bits processors before any further use or creating mathematical or physician conclusions.
 All the functions are NOT for any legal and productive use in the real world. Just use it in order to developp your creativity and thoughts.
 Contact me if you want to share new thoughts or have any question.
+
+
+Keywords: ellipse circumference, cosinus elliptique, modified shortened cycloid, AGM/MAGM
