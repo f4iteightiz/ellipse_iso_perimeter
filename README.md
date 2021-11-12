@@ -122,12 +122,18 @@ Dependencies: BPEREL, SOLVE from Sandmath.
 
 
 TPEREL: calculate the angle of the cosinus elliptique ("Ce") when its overall ellipse radius is given. See the explanation in the program file
+
 To Cosinus elliptique "Ce": 1/Ce(angle)=(pi*N(tan**2(angle)))/(2*SQRT(1+tan**2(angle))*M(tan(angle)))
-  M and N are the AGM and MAGM (see PEREL6). MAGM created by http://semjonadlaj.com/
-  1/Ce(angle): between 1 and 0.9003.. (=2*SQRT(2)/pi)
-  angle: between 0 and pi/4 (= atan(a/b) where a<b)
-  where the final explanation of it is >> Ellipse perimeter of (a,b) = 4 * SQRT(a**2+b**2) / Ce(angle) 
-  Ce is independant of the ellipse form. It is valid for all ellipses.
+
+M and N are the AGM and MAGM (see PEREL6). MAGM created by http://semjonadlaj.com/
+
+1/Ce(angle): between 1 and 0.9003.. (=2*SQRT(2)/pi)
+
+angle: between 0 and pi/4 (= atan(a/b) where a<b)
+
+where the final explanation of it is >> Ellipse perimeter of (a,b) = 4 * SQRT(a**2+b**2) / Ce(atan(a/b)) 
+
+Ce is independant of the ellipse form. It is valid for all ellipses.
 
 
 RPEREL: calculate the radius of the cosinus elliptique when its angle is given (see TPEREL and the explanation in the program file).
