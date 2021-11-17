@@ -1,0 +1,26 @@
+LBL "PERELC" ;calc ellipse perim acc convergence AGM/MAGM or other
+            ;
+            ;Input:
+            ;  a ENTER b XEQ PERELC
+            ;  a and b are half-parameter of ellipse
+            ;
+            ;Output:
+            ;  P in stack X (=perimeter)
+            ;
+            ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+            ;http://www.ams.org/notices/201208/rtx120801094p.pdf
+            ;
+            ;change log:
+            ;2021 10 28 Creation for replacing PERELS which dont bring
+            ;           calculation value. 
+            ;
+CF 00       
+X>Y?         
+X<>Y         
+STO 07       ; b in 07
+X<>Y        
+STO 08       ; a in 08 and now is a bigger than b
+1
+XEQ "PEREL6" ; calc ellipse perim acc AGM/MAGM convergence
+RTN
+END
