@@ -1,12 +1,11 @@
 LBL "SCFPER3" ;scanning b for drwg ellipse isoperim 4 in S steps
              ;b is the parameter in interpolation conic (ellipse)
              ;X^2 +bXY +cY^2 +dX +eY +F =0 for an isoperimeter curve
-             ;THIS IS NOT THE ELLIPSE HALF PARAMETER
+             ;THIS b IS NOT THE ELLIPSE HALF PARAMETER
              ;This program search all possible
              ; values of b for the interval X Y 0..2n/pi Based on the results,
              ; it will be possible to curve fit a function 
-             ; F(half-parameters of ellipse)
-             ; solved by using a true calculation of perimeter of value 4
+             ; for a true (approximate) calculation of perimeter of value 4
              ;
              ;Inputs
              ;  S ENTER XEQ SCFPER3
@@ -18,9 +17,11 @@ LBL "SCFPER3" ;scanning b for drwg ellipse isoperim 4 in S steps
              ;  Radius 
              ;  Angle    .. all above for ideal isoperimeter
              ;  b        .. for the ideal ellipse fitting curve
+             ;  1/b
              ;  X/Y      .. as additional output (X and Y same as above)
+             ;  etc. see output example below
              ;
-             ;  put outputs into desmos.com for visualization
+             ;THEN put these outputs into desmos.com for visualization
              ;
              ;typical output
              ;
@@ -28,22 +29,37 @@ LBL "SCFPER3" ;scanning b for drwg ellipse isoperim 4 in S steps
              ;ELLIPSE CALC
              ;ISOPERIME OF
              ; 4.000000000 ***
-             ; IN
+             ; IN         
              ; 500.0000000 ***
-             ; STEPS
+             ; STEPS      
              ;------------
              ;X-Y & R-ANG >
              ; 0.636619771 ***
              ; 0.636619774 ***
              ; 0.900316316 ***
              ; 0.785398162 ***
-             ;Conic b & X/Y >
-             ; 1.7xxxxxxxx ***
-             ; yyyyyyyyyyy ***
+             ; b
+             ; 1.115384618 ***
+             ; 1/b
+             ; 0.896551722 ***
+             ; X/Y
+             ; 0.999999996 ***
+             ; 1-(X/Y)^2
+             ; 0.000000008 ***
+             ; SQRT(1-(X/Y)^2
+             ; 0.000091652 ***
+             ; 1-(X/Y)^4
+             ; 0.000000017 ***
+             ; SQRT(1-(X/Y)^4
+             ; 0.000129615 ***
+             ; 1-/+X/Y**2
+             ; 0.000000004 ***
+             ; SQRT1-/+X/Y**2
+             ; 0.000064807 ***
+             ; (Y-X)/(Y+X)
+             ; 0.000000002 ***
              ;------------
              ;X-Y & R-ANG >
-             ; 0.635346532 ***
-             ; 0.637891741 ***
              ; .....
              ; 
              ;use R22-28
@@ -60,7 +76,11 @@ LBL "SCFPER3" ;scanning b for drwg ellipse isoperim 4 in S steps
              ;change log
              ;2021 10 27 Creation
              ;2021 10 29 Release
-             ;2021 11 03 X/Y output additionally
+             ;2021 11 03 X/Y output added
+             ;2021 11 04 SQRT(1+(X/Y)**2) output added
+             ;2021 11 08 (1+(X/Y)**2)**-1/2 and SQRT(1-(X/Y)**2) output added
+             ;           SQRT(1-(X/Y)**2)/SQRT(1+(X/Y)**2) output added
+             ;2021 11 17 (Y-X)/(Y+X) output added
              ;
 RAD        
 CF 00    
@@ -117,13 +137,84 @@ LBL 01
   "BCON"
   ASTO 06       ;if using SOL of MATH instead of SOLVE from Advantage
   XEQ "SOLVE"   ;finding the b of the conic for passing through the isoperimeter
-  "Conic b & X/Y >"
+  " b"
   PRA
-  PRX
+  PRX     
+  " 1/b"
+  PRA
+  1/X
+  PRX     
+  ;
+  " X/Y"
+  PRA
   RCL 23
   RCL 24
   /  
-  PRX
+  PRX   
+  ;   
+  " 1-(X/Y)^2"
+  PRA
+  X^2
+  CHS
+  1
+  +
+  PRX   
+  ;   
+  " SQRT(1-(X/Y)^2"
+  PRA
+  SQRT
+  PRX  
+  ;
+  X^2
+  RCL 23
+  RCL 24
+  /  
+  X^2
+  1
+  +
+  *
+  " 1-(X/Y)^4"
+  PRA
+  PRX    
+  ;
+  SQRT
+  " SQRT(1-(X/Y)^4"
+  PRA
+  PRX   
+  ; 
+  RCL 23
+  RCL 24
+  /  
+  X^2
+  CHS
+  1
+  +      
+  RCL 23
+  RCL 24
+  /  
+  X^2
+  1
+  +
+  /
+  " 1-/+X/Y**2"
+  PRA
+  PRX    
+  ;
+  SQRT
+  " SQRT1-/+X/Y**2"
+  PRA
+  PRX   
+  " (Y-X)/(Y+X)"
+  PRA
+  RCL 24
+  RCL 23
+  -
+  LASTX
+  RCL 24
+  +
+  /
+  PRX   
+  ;
   RCL 22
   ST- 23
   RCL 23
