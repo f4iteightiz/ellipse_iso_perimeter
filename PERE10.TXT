@@ -1,0 +1,143 @@
+LBL "PERE10" ;ellipse perimeter calculus
+             ;similar to a modified shortened cycloid rolling on a flat ground
+             ;X= (pi/4)*F(t) -(0.5-sqrt(2)/pi)*sin(t)
+             ;Y= 0.5 +sqrt(2)/pi +(0.5-sqrt(2)/pi)*cos(t)
+             ;F(t) instead of t in a shortened cycloid
+             ;
+             ;input 
+             ; a ENTER b ENTER XEQ PERE10
+             ; a and b half ellipse parameter
+             ;
+             ;output
+             ; Perimeter
+             ;
+             ;R22-24 used
+             ;R07-08 A and B
+             ;
+             ;under CC BY SA creative commons 4.0 pascaldagornet at yahoo dot de
+             ;
+             ;create raw files with "hp41uc.exe /t=PERE10.TXT /r /k"
+             ; then upload in PC emulator / virtual drive / HP41 hardware
+             ;
+             ;change log
+             ;
+             ;2021 11 18 creation
+             ; new F(t) found with SCFPER2
+             ; https://www.desmos.com/calculator/uyi2h2o3g2?lang=de
+             ;     0= t**2
+             ;        -1.04508*t*F(t)
+             ;        +0.189207*F(t)**2
+             ;        +0.210357*t
+             ;        -0.354484*F(t)
+             ; solution  F(t)= ((0.354484 +1.04508*t) 
+             ;                   - SQRT((0.354484 +1.04508*t)**2 
+             ;                   - 4*(0.189207 * (0.210357*t + t**2))))
+             ;                   /.378414
+             ;Maximum deviation identified with CPMPPER1 0.006450400%
+             ;X-Y R-A Plan
+             ; 0.276292993 ***
+             ; 0.910570095 ***
+             ; 0.951564877 ***
+             ; 0.294599307 ***
+             ;PERE10
+             ; Is, Delta, %
+             ; 3.999741984 ***
+             ;-0.000258016 ***
+             ;-0.006450400 ***
+;
+X>Y?          
+X<>Y          
+X=0?          
+GTO 04
+STO 07       ;b in 07
+X<>Y
+STO 08       ;a in 08 and now is a bigger than b
+RAD       
+2
+SQRT
+PI
+/
+CHS
+0.5
++
+STO 22       ;secure reuse param 1/2 - SQRT(2)/pi
+0.00000001   ; search for t
+0.99999999
+"ZWFZT"
+ASTO 06      ; in case of use of SOL from MATH module
+XEQ "SOLVE"  ;solve from Advantage
+PI
+*
+COS
+CHS
+1
++
+RCL 22
+*
+CHS
+1
++
+1/X
+RCL 07
+X^2
+RCL 08
+X^2
++
+SQRT
+*
+4
+*
+RTN
+LBL "ZWFZT"   ;calulating the t for the atan(b/a) angle
+STO 23       ;secure parameter t
+PI
+*
+SIN
+RCL 22
+*
+CHS
+STO 24       ;temporary storage
+RCL 23       ;t
+1.04508
+*
+0.354484
++
+X^2
+LASTX
+X<>Y
+RCL 23
+0.210357
++
+RCL 23
+*
+0.189207
+*
+4
+*
+-
+SQRT
+-
+.378414
+/
+PI
+*
+4
+/
+ST+ 24
+RCL 08
+RCL 07
+/
+ATAN
+ST+ 24
+PI
+2
+/
+ST- 24
+RCL 24
+RTN
+LBL 04
+X<>Y
+4
+*
+RTN
+END
