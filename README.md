@@ -76,6 +76,11 @@ PEREL7: calculus of ellipse perimeter using a modified shortened cycloid functio
 Dependencies of MATH "SOL" or Advantage "SOLVE".
 
 
+PERE10: calculus of ellipse perimeter using a modified shortened cycloid function
+with F(t)= ((0.354484 +1.04508*t) - SQRT((0.354484 +1.04508*t)**2  - 4*(0.189207 * (0.210357*t + t**2)))) /.378414 instead of "t" in the 
+standard form of a standard shortened cycloid X= (pi/4)*F(t) -(0.5-sqrt(2)/pi)*sin(pi*t), Y=.Y= 0.5 +sqrt(2)/pi +(0.5-sqrt(2)/pi)*cos(pi*t)
+
+
 PEREL9: calculus of ellipse perimeter using an approximation function for the iso-perimeter curves. Further works planned. 
 The first level of calculus is implemented: isoperimeter function is curve fitted with an ellipse and a constant 1.64079 (see file header).
 The second level of calculus (instead of constant 1.64079, use a function): an hyperbola was evaluated and will be worked out the next weeks/months.
@@ -108,7 +113,8 @@ Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen).
 
 CMPPER1: compare 
 a) exact ellipse perimeter calculation based on infinite serial calculations or AGM/MAGM and 
-b) ellipse perimeter calculation based on PEREL7 or others.
+b) ellipse perimeter calculation based on PEREL7 or PERE10 or others.
+by giving the differences in absolute and %.
 Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "PEREL7" (or other tbd).
 
 
@@ -124,15 +130,10 @@ Dependencies: BPEREL, SOLVE from Sandmath.
 TPEREL: calculate the angle of the cosinus elliptique ("Ce") when its overall ellipse radius is given. See the explanation in the program file
 
 To Cosinus elliptique "Ce": 1/Ce(angle)=(pi*N(tan**2(angle)))/(2*SQRT(1+tan**2(angle))*M(tan(angle)))
-
 M and N are the AGM and MAGM (see PEREL6). MAGM created by http://semjonadlaj.com/
-
 1/Ce(angle): between 1 and 0.9003.. (=2*SQRT(2)/pi)
-
 angle: between 0 and pi/4 (= atan(a/b) where a<b)
-
 where the final explanation of it is >> Ellipse perimeter of (a,b) = 4 * SQRT(a**2+b**2) / Ce(atan(a/b)) 
-
 Ce is independant of the ellipse form. It is valid for all ellipses.
 
 
