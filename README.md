@@ -76,17 +76,15 @@ PEREL7: calculus of ellipse perimeter using a modified shortened cycloid functio
 Dependencies of MATH "SOL" or Advantage "SOLVE".
 
 
-PERE10: calculus of ellipse perimeter using a modified shortened cycloid function
+PERE10: calculus (approximation) of ellipse perimeter using a modified shortened cycloid function
 with F(t)= ((0.354484 +1.04508*t) - SQRT((0.354484 +1.04508*t)**2  - 4*(0.189207 * (0.210357*t + t**2)))) /.378414 instead of "t" in the 
 standard form of a standard shortened cycloid X= (pi/4)*F(t) -(0.5-sqrt(2)/pi)*sin(pi*t), Y=.Y= 0.5 +sqrt(2)/pi +(0.5-sqrt(2)/pi)*cos(pi*t)
+Dependencies: MATH "SOL" or ADVANTAGE "SOLVE".
 
 
 PEREL9: calculus of ellipse perimeter using an approximation function for the iso-perimeter curves. Further works planned. 
 The first level of calculus is implemented: isoperimeter function is curve fitted with an ellipse and a constant 1.64079 (see file header).
-The second level of calculus (instead of constant 1.64079, use a function): an hyperbola was evaluated and will be worked out the next weeks/months.
-The third level: tbd
-Each added level increase the approximation results.
-For the reason conics are used (polynom of degree 2 in X and Y), the solving is done by usual mathematic formula.
+Dependencies: none.
 
 
 PERELS: calculate the perimeter of an ellipse according the best suitable method (best convergency identified depending of the factor b/a). 
@@ -115,12 +113,17 @@ CMPPER1: compare
 a) exact ellipse perimeter calculation based on infinite serial calculations or AGM/MAGM and 
 b) ellipse perimeter calculation based on PEREL7 or PERE10 or others.
 by giving the differences in absolute and %.
-Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "PEREL7" (or other tbd).
+Dependencies: BPEREL, HP-IL (for outputs logging into printer/screen), new function "PEREL7" (or others).
 
 
 SCFPER1: calculus of several points of a modified shortened cycloid with a curve f(t) curve replacing the Bohr Magneton electron Adjustment constant 
 which is multiplied by 1000 in (t^ae*1000 change into t^f(t)) for use in the PEREL7 function. 
 Based on the calculated points of this curve, a curve fitting was done and a good guess of a function was defined. See PEREL7.
+
+
+SCFPER2: calculus of several points of a modified shortened cycloid with a curve f(t) curve for calculating ellipse perimeter 
+in a precise (approximnation) method.
+Dependencies: BPEREL, SOLVE from Sandmath. 
 
 
 SCFPER3: calculus of several parameters of an elliptic approximation curve for diverse (b) factors of PEREL9 (see header in it).
