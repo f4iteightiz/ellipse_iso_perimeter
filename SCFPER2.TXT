@@ -1,0 +1,175 @@
+LBL "SCFPER2" ;calculus of factor Z for drwg ellipse isoperim 4 in S steps
+             ;Z is the parameter in cycloid
+             ;see https://www.desmos.com/calculator/dprj2gqsry?lang=de
+             ;x=r*t−d*sin(t),y=r−d*cos(t)
+             ;by using Z instead of t in the previous equation, 
+             ; x=r*Z−d*sin(t),y=r−d*cos(t)    we come
+             ; to a good looking solution: Z as t**(constant) is good; 
+             ; better must be found. This program search all possible
+             ; values of Z(t) for the interval t 0..1. Based on the results,
+             ; it will be possible to curve fit a function F(t)=Z passing
+             ; through the t 0..1
+             ;Z is solved by using a true calculation of perimeter of value 4
+             ;
+             ;Inputs
+             ;  S ENTER XEQ SCFPER2
+             ;  Step S  2..100000 in area 0..1 (t of cycloid)
+             ;Outputs
+             ;  a and b
+             ;  with output of approx/straight/interpolation function
+             ;  put outputs into desmos.com for visualization
+             ;
+             ;typical output
+             ;
+             ;---START----
+             ;CYCLOID CALC
+             ;ISOPERIME OF
+             ; 4.000000000 ***
+             ; IN
+             ; 500.0000000 ***
+             ; STEPS
+             ;------------
+             ;X-Y & R-ANG >
+             ; 0.636619771 ***
+             ; 0.636619774 ***
+             ; 0.900316316 ***
+             ; 0.785398162 ***
+             ;CYCL t & Z >
+             ; 0.999976387 ***
+             ; 1.000004705 ***
+             ;------------
+             ;X-Y & R-ANG >
+             ; 0.635346532 ***
+             ; 0.637891741 ***.....
+             ; 
+             ;use R22-28  (to be optimized) 
+             ;  R 20-21 in BPEREL 
+             ;  R 00-19 are used in PERELS and 3 and 4 and 6
+             ;
+             ;require a printer or a terminal emulator ideally pyilper for log
+             ;
+             ;create raw files with "hp41uc.exe /t=SCFPER2.TXT /r /k"
+             ; then upload in PC emulator / virtual drive / HP41 hardware
+             ;
+             ;under CC BY SA CreativeCommons 4.0 pascaldagornet at yahoo dot de
+             ;
+             ;change log
+             ;2021 10 21 initial
+             ;2021 10 22 header output complemented
+             ;2021 10 25 simplify output 
+             ;2021 10 26 review separator -- output
+             ;
+RAD        
+CF 00    
+ADV           ;printer or a terminal emulator ideally pyilper recommended
+"---START----"
+PRA 
+"CYCLOID CALC" 
+PRA            
+"ISOPERIME OF" 
+PRA            
+4             ;fix the perimeter of 4 here
+STO 20        ;P in R 20 (for later); same R 20 like in BPEREL
+PRX            
+" IN         "
+PRA
+X<>Y           
+PRX
+" STEPS      "
+PRA
+0.636619771   ;2 / PI  
+X<>Y
+/
+STO 22        ;Step decrement in 22
+2
+SQRT
+PI
+/
+CHS
+0.5
++
+STO 27        ;secure reuse param 1/2 - SQRT(2)/pi
+0.636619771   
+RCL 20
+*
+4
+/
+STO 23        ;(2 / PI)*P/4   start of calculation
+LBL 01
+  "------------"
+  PRA
+  "X-Y & R-ANG >"
+  PRA
+  PRX           ;output x (a)
+  RCL 20
+  XEQ "BPEREL"
+  PRX           ;output x (b)
+  STO 24
+  RCL 23
+  R-P
+  PRX
+  STO 25        ;storage Radius
+  X<>Y
+  PI
+  2
+  /
+  X<>Y
+  -
+  PRX
+  STO 26        ;storage angle
+  0.000000001
+  0.999999999
+  "YCYCL"
+  ASTO 06       ;if using SOL of MATH instead of SOLVE from Advantage
+  XEQ "SOLVE"   ;can use SOL of MATH instead
+  "CYCL t & Z >"
+  PRA
+  PRX
+  STO 28        ;storage t
+  0.00000001
+  0.99999999    ; Z will be between 0 and 1
+  "XCYCL"       ;identify Z factor of cycloid
+  ASTO 06   
+  XEQ "SOLVE" 
+  PRX
+  RCL 22
+  ST- 23
+  RCL 23
+  X>0?
+GOTO 01
+DEG
+"---ENDE-----"
+PRA
+RTN
+LBL "YCYCL"  
+PI
+*
+COS
+CHS
+1
++
+RCL 27
+*
+CHS
+1
++
+RCL 25
+-
+RTN
+LBL "XCYCL"  
+PI       ; Z mutiplied by pi/4
+*
+4
+/
+RCL 28
+PI
+*
+SIN
+CHS
+RCL 27
+*
++
+RCL 26
+-
+RTN
+END
