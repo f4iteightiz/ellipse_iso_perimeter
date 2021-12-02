@@ -78,7 +78,7 @@ Dependencies of MATH "SOL" or Advantage "SOLVE".
 
 PERE10: calculus (approximation) of ellipse perimeter using a modified shortened cycloid function
 with F(t)= ((0.354484 +1.04508*t) - SQRT((0.354484 +1.04508*t)**2  - 4*(0.189207 * (0.210357*t + t**2)))) /.378414 instead of "t" in the 
-standard form of a standard shortened cycloid X= (pi/4)*F(t) -(0.5-sqrt(2)/pi)*sin(pi*t), Y=.Y= 0.5 +sqrt(2)/pi +(0.5-sqrt(2)/pi)*cos(pi*t)
+standard form of a standard shortened cycloid X= (pi/4)*F(t) -(0.5-sqrt(2)/pi)*sin(pi*t), Y= 0.5 +sqrt(2)/pi +(0.5-sqrt(2)/pi)*cos(pi*t)
 Dependencies: MATH "SOL" or ADVANTAGE "SOLVE".
 
 
@@ -132,12 +132,12 @@ Dependencies: BPEREL, SOLVE from Sandmath.
 
 TPEREL: calculate the angle of the cosinus elliptique ("Ce") when its overall ellipse radius is given. See the explanation in the program file
 
-To Cosinus elliptique "Ce": 1/Ce(angle)=(pi*N(tan**2(angle)))/(2*SQRT(1+tan**2(angle))*M(tan(angle)))
+To Cosinus elliptique "Ce": 1/Ce(a/b)=(pi*N(tan**2(angle)))/(2*SQRT(1+tan**2(angle))*M(tan(angle)))
 M and N are the AGM and MAGM (see PEREL6). MAGM created by http://semjonadlaj.com/
-1/Ce(angle): between 1 and 0.9003.. (=2*SQRT(2)/pi)
+Ce(a/b): Maximum 1 and Minimum 0.9003.. (=2*SQRT(2)/pi) for a/b between 0 and 1.
 angle: between 0 and pi/4 (= atan(a/b) where a<b)
-where the final explanation of it is >> Ellipse perimeter of (a,b) = 4 * SQRT(a**2+b**2) / Ce(atan(a/b)) 
-Ce is independant of the ellipse form. It is valid for all ellipses.
+where the final explanation of it is >> Ellipse perimeter of (a,b) = 4 * SQRT(a**2+b**2) / Ce(a/b) <<
+Ce is independant of the ellipse form. It is valid for all ellipses. It depends only of the factor a/b.
 
 
 RPEREL: calculate the radius of the cosinus elliptique when its angle is given (see TPEREL and the explanation in the program file).
