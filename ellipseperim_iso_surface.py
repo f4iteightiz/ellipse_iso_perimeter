@@ -3,6 +3,7 @@
 Created on 2021 Oct 17
 Change log:
     2021 10 19 contour added, code cleaned
+    2023 01 15 code reworked
 draw an isoperimeter surface of ellipse
 a and b halfparameter of ellipse (X and Y)
 P calculated perimeter (Z)
@@ -16,33 +17,63 @@ from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import numpy as np
 import math as math
 
-def perim(x, y): # return perimeter according AGM MAGM calc
-# http://www.ams.org/notices/201208/rtx120801094p.pdf
-    xn=x   
-    xN=xn
-    yn=y
-    yN=yn
-    R09=xn*xn+yn*yn
-    R10=1.
-    if (xn!=0.) and (yn!=0.):
+def perim(x0, y0): 
+# return perimeter according AGM MAGM calc
+# parution http://www.ams.org/notices/201208/rtx120801094p.pdf
+# author MAGM http://semjonadlaj.com/
+#
+    if (x0!=0.) and (y0!=0.):
+        
+        xagm_n = x0
+        xagm_N = xagm_n
+        yagm_n = y0
+        yagm_N = yagm_n
+        
+        xmagm_n = (x0**2)/math.sqrt((x0**2)+(y0**2))
+        xmagm_N = xmagm_n
+        ymagm_n = (y0**2)/math.sqrt((x0**2)+(y0**2))
+        ymagm_N = ymagm_n
+        
+        zmagm_n = 0.    # starting at 0 for xmagm and ymagm >=0
+        zmagm_N = zmagm_n
+    
         while True:
-            yn=yN
-            xn=xN
-            yN=math.sqrt(xn*yn)
-            R10=R10*2
-            xN=xn-(xn-yn)/2
-            R09 = R09- R10*((xn-yn)/2)**2
-            if (R10*((xn-yn)/2)**2) < 1e-15:
+# AGM
+            xagm_n = xagm_N
+            yagm_n = yagm_N
+        
+            xagm_N = (xagm_n + yagm_n)/2
+            yagm_N = math.sqrt(xagm_n*yagm_n)
+            
+            convagm = abs(xagm_N-yagm_N)
+# MAGM
+            xmagm_n = xmagm_N
+            ymagm_n = ymagm_N
+            zmagm_n = zmagm_N
+
+            xmagm_N = (xmagm_n+ymagm_n)/2
+            ymagm_N = zmagm_n + math.sqrt((xmagm_n-zmagm_n)*(ymagm_n-zmagm_n))
+            zmagm_N = zmagm_n - math.sqrt((xmagm_n-zmagm_n)*(ymagm_n-zmagm_n))
+
+            convmagm = abs(xmagm_N-ymagm_N)
+            
+            if ((convagm < 1e-10) and (convmagm < 1e-10)):
                 break
-        R09=(R09/yN)*math.pi
+                
+        Result=4.*math.sqrt((x0**2)+(y0**2))*(xmagm_N/xagm_N)*math.pi/2.
+        # perimeter of ellipse
+        # (xmagm_N/xagm_N)*math.pi is a so called cosinus elliptique = the same for any equal a/b or b/a
+        # and the perimeter of the ellipse will be straight proportional to sqrt((a**2)+(b**2))
+        
     else:
-        if (xn==0.):
-            R09=yN*4
-        if (yn==0):
-            R09=xN*4
-    return R09  
-# domains
+        if (x0==0.):
+            Result=y0*4
+        if (y0==0):
+            Result=x0*4
+    return Result  
+
 #pdb.set_trace()  # start the debugger
+
 N = 50
 Wide = 10.
 X = np.arange(0.,Wide,Wide/N)
