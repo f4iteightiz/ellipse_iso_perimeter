@@ -1,0 +1,99 @@
+; calcul ellipse perimeter GaussKummer-like with AGM exact function for 
+;   "convergence boosting"
+;
+;   "HP41 Iterated function GAGM based"
+;
+; Execution/Inputs
+;  a ENTER b ENTER XEQ PERE12  
+;  a and b: half parameter of the ellipse
+;  in case a or b = 0, it would be a flat ellipse. The programm is considering
+;  this but must not consider this (result will be "perimeter = 4*(a+b)")
+;  and would be shorter by several steps
+;
+;Outputs
+;  results in stack X: perimeter
+;
+;Modules used
+; None
+;
+;use Register 07..10
+;keep free Reg 00-06 if use with SOL from MATH from other programs
+; incase this program would be used for example for finding the "a" in case
+; the "perimeter" and the "b" are given
+;
+;create raw file with "rpncomp --raw-output PERE12.TXT", upload
+;  in V41 emulator and store into virtual drive pyILPER
+;
+;under CC BY SA CreativeCommons 4.0 
+;   floppy @ https://www.hpmuseum.org/forum/
+;   and pascaldagornet@gmail.com
+;
+;idea taken from here
+;  https://semjonadlaj.com/SP/Computer+Algebra+in+Scientific+Computing_37-56.pdf
+;  https://www.hpmuseum.org/forum/thread-5820-post-171326.html#pid171326
+;        P(a,b)=2*( P((a+b)/2,sqrt(a*b)) - pi*a*b/AGM(a,b) )
+;
+;change log
+; date 2023 04 15 creation and release (based on PEREL6 simplified program)
+; date 2023 04 16 co-author pascaldagornet@gmail.com added
+;                 R11 use deleted
+;
+;comment
+; all an bn R0xn are from the "n" loop
+; all with "N" are updated parameter in the new loop
+;
+LBL "PERE12"              
+X=0?         ; in case a = 0 this is a flat ellipse
+GTO 01
+STO 07       ; b in 07
+X<>Y
+X=0?         ; in case b = 0 this is a flat ellipse
+GTO 01
+STO 08       ; a in 08
+X^2
+X<>Y
+X^2
++
+STO 09       ; an^2 + bn^2 in R09 for temporary storage of this result
+1
+STO 10       ; 1 in R10n = parameter in this program
+;
+LBL 00       ;     X             Y          Z          T
+  RCL 08     ;     an
+  RCL X      ;     an           an
+  RCL 07     ;     bn           an          an
+  *          ;     bn*an          an
+  SQRT       ;  SQRT(an*bn)=bN    an              
+  X<> 07     ;     bn             an                
+             ;  ... R07 = bN
+  RCL 07     ;     bN             bn        an
+  X=Y?
+  SF 00      ;  activate flag when the calculation convergence is achieved
+             ;  for the used calculator; it will go out later in the loop
+  RDN        ;     bn             an       
+  -          ;    an-bn           
+  2          ;    2            an-bn         
+  ST* 10     ;    2            an-bn              
+             ;    ... R10N= 2*R10n
+  /          ;  (an-bn)/2          
+  ST- 08     ;  (an-bn)/2                       
+             ;  ... R08N=aN=an-(an-bn)/2=(an+bn)/2
+  X^2        ;  ((an-bn)/2)^2     
+  RCL 10     ;  R10N      ((an-bn)/2)^2      
+  *          ;  R10N*((an-bn)/2)^2           
+  ST- 09     ;  R10N*((an-bn)/2)^2             
+             ;  ...  R09N = R09n- R10N*((an-bn)/2)^2
+  FC?C 00
+  GOTO 00
+RCL 09
+RCL 07 
+/
+PI
+*          
+RTN          
+LBL 01       ;in case b or a = 0 flat ellipse it goes here out
++
+4
+*
+RTN      
+END       
