@@ -82,6 +82,9 @@ standard form of a standard shortened cycloid X= (pi/4)*F(t) -(0.5-sqrt(2)/pi)*s
 Dependencies: MATH "SOL" or ADVANTAGE "SOLVE".
 
 
+PERE12: AGM/MAGM like calculation.
+
+
 PEREL9: calculus of ellipse perimeter using an approximation function for the iso-perimeter curves. Further works planned. 
 The first level of calculus is implemented: isoperimeter function is curve fitted with an ellipse and a constant 1.64079 (see file header).
 Dependencies: none.
